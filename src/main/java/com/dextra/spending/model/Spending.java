@@ -1,10 +1,10 @@
 package com.dextra.spending.model;
 
+import com.dextra.spending.enums.PaymentTypes;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.math.BigDecimal;
 
 @Document(collection = "SPENDING")
 public class Spending implements Serializable {
@@ -13,17 +13,19 @@ public class Spending implements Serializable {
 
     private String customerName;
 
-    private LocalDate date;
+    private String date;
 
-    private LocalTime time;
+    private String time;
 
-    private String price;
+    private BigDecimal price;
 
     private String type;
 
     private String place;
 
-    private String paymentType;
+    private PaymentTypes paymentType;
+
+    private boolean isFixedSpending;
 
     public Long getId() {
         return id;
@@ -41,27 +43,27 @@ public class Spending implements Serializable {
         this.customerName = customerName;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public LocalTime getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(LocalTime time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
-    public String getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -81,11 +83,11 @@ public class Spending implements Serializable {
         this.place = place;
     }
 
-    public String getPaymentType() {
+    public PaymentTypes getPaymentType() {
         return paymentType;
     }
 
-    public void setPaymentType(String paymentType) {
+    public void setPaymentType(PaymentTypes paymentType) {
         this.paymentType = paymentType;
     }
 }
