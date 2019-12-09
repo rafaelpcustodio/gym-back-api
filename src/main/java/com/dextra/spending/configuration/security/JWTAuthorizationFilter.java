@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import static com.dextra.spending.configuration.security.SecurityConstants.*;
 
+// responsible for user authorization
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter{
 
     public JWTAuthorizationFilter(AuthenticationManager authManager) {
@@ -39,6 +40,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter{
         chain.doFilter(req, res);
     }
 
+    //  This method reads the JWT from the Authorization header, and then uses JWT to validate the token
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
         if (token != null) {

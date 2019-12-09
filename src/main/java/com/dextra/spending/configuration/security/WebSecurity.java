@@ -27,6 +27,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter{
     }
 
     @Override
+    // we can define which resources are public and which are secured
+    // We also configure CORS (Cross-Origin Resource Sharing) support through http.cors()
+    // and we add a custom security filter in the Spring Security filter chain
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
@@ -39,14 +42,17 @@ public class WebSecurity extends WebSecurityConfigurerAdapter{
     }
 
     @Override
+    // we defined a custom implementation of UserDetailsService to load user-specific data in the security framework
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
     }
 
     @Bean
+    // we can allow/restrict our CORS support
     CorsConfigurationSource corsConfigurationSource() {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        source.registerCorsConfiguration("/login", new CorsConfiguration().applyPermitDefaultValues());
         return source;
     }
 }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/users") // end-point that alow to create new users
 public class ApplicationUserController {
 
     private ApplicationUserRepository userRepository;
@@ -24,7 +24,7 @@ public class ApplicationUserController {
 
     @PostMapping("/sign-up")
     public void signUp(@RequestBody ApplicationUser user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword())); // encrypt password before saving it.
         userRepository.save(user);
     }
 }
