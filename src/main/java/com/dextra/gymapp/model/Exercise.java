@@ -1,7 +1,7 @@
 package com.dextra.gymapp.model;
 
-import com.dextra.gymapp.enums.GroupPhysicalExerciseTypes;
-import com.dextra.gymapp.enums.PhysicalExerciseLevelTypes;
+import com.dextra.gymapp.enums.GroupExerciseTypes;
+import com.dextra.gymapp.enums.ExerciseLevelTypes;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -44,11 +44,11 @@ public class Exercise {
 
     @Column(name="GROUP")
     @NotNull
-    private GroupPhysicalExerciseTypes group;
+    private GroupExerciseTypes group;
 
     @Column(name="LEVEL")
     @NotNull
-    private PhysicalExerciseLevelTypes level;
+    private ExerciseLevelTypes level;
 
     @ManyToOne
     @JoinColumn(name="user_id", referencedColumnName = "userId", foreignKey = @ForeignKey(name="FK_EXERCISE_USER"))
@@ -125,19 +125,19 @@ public class Exercise {
         this.series = series;
     }
 
-    public GroupPhysicalExerciseTypes getGroup() {
+    public GroupExerciseTypes getGroup() {
         return group;
     }
 
-    public void setGroup(GroupPhysicalExerciseTypes group) {
+    public void setGroup(GroupExerciseTypes group) {
         this.group = group;
     }
 
-    public PhysicalExerciseLevelTypes getLevel() {
+    public ExerciseLevelTypes getLevel() {
         return level;
     }
 
-    public void setLevel(PhysicalExerciseLevelTypes level) {
+    public void setLevel(ExerciseLevelTypes level) {
         this.level = level;
     }
 }

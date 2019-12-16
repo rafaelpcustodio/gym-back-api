@@ -1,5 +1,5 @@
 package com.dextra.gymapp.enums;
 
-public enum PhysicalExerciseLevelTypes {
+public enum ExerciseLevelTypes {
     HARDCORE,EXPERT,HARD,MEDIUM,EASY;
 }

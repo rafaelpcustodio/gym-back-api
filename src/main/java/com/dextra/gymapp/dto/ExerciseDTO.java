@@ -1,7 +1,7 @@
 package com.dextra.gymapp.dto;
 
-import com.dextra.gymapp.enums.GroupPhysicalExerciseTypes;
-import com.dextra.gymapp.enums.PhysicalExerciseLevelTypes;
+import com.dextra.gymapp.enums.GroupExerciseTypes;
+import com.dextra.gymapp.enums.ExerciseLevelTypes;
 
 public class ExerciseDTO {
 
@@ -9,8 +9,8 @@ public class ExerciseDTO {
     private Long weight;
     private String series;
     private String urlImage;
-    private GroupPhysicalExerciseTypes group;
-    private PhysicalExerciseLevelTypes level;
+    private GroupExerciseTypes group;
+    private ExerciseLevelTypes level;
 
     public String getUrlImage() {
         return urlImage;
@@ -44,19 +44,19 @@ public class ExerciseDTO {
         this.series = series;
     }
 
-    public GroupPhysicalExerciseTypes getGroup() {
+    public GroupExerciseTypes getGroup() {
         return group;
     }
 
-    public void setGroup(GroupPhysicalExerciseTypes group) {
+    public void setGroup(GroupExerciseTypes group) {
         this.group = group;
     }
 
-    public PhysicalExerciseLevelTypes getLevel() {
+    public ExerciseLevelTypes getLevel() {
         return level;
     }
 
-    public void setLevel(PhysicalExerciseLevelTypes level) {
+    public void setLevel(ExerciseLevelTypes level) {
         this.level = level;
     }
 }
