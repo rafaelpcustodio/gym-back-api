@@ -1,11 +1,11 @@
 package com.dextra.gymapp.controller;
 
-import com.dextra.gymapp.configuration.polls.exception.AppException;
-import com.dextra.gymapp.configuration.polls.payload.ApiResponse;
-import com.dextra.gymapp.configuration.polls.payload.JwtAuthenticationResponse;
-import com.dextra.gymapp.configuration.polls.security.JwtTokenProvider;
-import com.dextra.gymapp.configuration.polls.payload.LoginRequest;
-import com.dextra.gymapp.configuration.polls.payload.SignUpRequest;
+import com.dextra.gymapp.configuration.exception.AppException;
+import com.dextra.gymapp.configuration.payload.ApiResponse;
+import com.dextra.gymapp.configuration.payload.JwtAuthenticationResponse;
+import com.dextra.gymapp.configuration.security.JwtTokenProvider;
+import com.dextra.gymapp.configuration.payload.LoginRequest;
+import com.dextra.gymapp.configuration.payload.SignUpRequest;
 import com.dextra.gymapp.enums.RoleName;
 import com.dextra.gymapp.model.Role;
 import com.dextra.gymapp.model.User;
@@ -30,7 +30,7 @@ import java.net.URI;
 import java.util.Collections;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 public class AuthController {
 
     @Autowired

@@ -1,4 +1,4 @@
-package com.dextra.gymapp.configuration.polls.payload;
+package com.dextra.gymapp.configuration.payload;
 
 import javax.validation.constraints.NotBlank;
 

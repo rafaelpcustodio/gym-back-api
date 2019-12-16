@@ -1,4 +1,4 @@
-package com.dextra.gymapp.configuration.polls.security;
+package com.dextra.gymapp.configuration.security;
 
 import com.dextra.gymapp.model.User;
 import org.springframework.security.core.GrantedAuthority;

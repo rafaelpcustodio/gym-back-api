@@ -1,11 +1,15 @@
 package com.dextra.gymapp.service;
 
+import com.dextra.gymapp.dto.ExerciseDTO;
 import com.dextra.gymapp.model.Exercise;
+import com.dextra.gymapp.model.User;
 import com.dextra.gymapp.repository.ExerciseRepository;
-import com.dextra.gymapp.utils.DateParser;
+import com.dextra.gymapp.util.DateParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,10 +19,26 @@ public class ExerciseService {
 
     private ExerciseRepository exerciseRepository;
 
+    @Autowired
+    public ExerciseService(ExerciseRepository exerciseRepository) {
+        this.exerciseRepository = exerciseRepository;
+    }
+
     @Transactional(readOnly = true)
-    public List<Exercise> findByUserIdAndExerciseIdAndDate(final Long userId, final Long exerciseId, final Date date){
-        return null;
-        // return this.exerciseRepository.findByUserIdAndExerciseIdAndDate(userId, exerciseId, DateParser.convertDateToLocalDate(date));
+    public List<ExerciseDTO> findByUserAndExerciseIdAndDate(final User user, final String date){
+        List<ExerciseDTO> exercisesDTO = new ArrayList<>();
+        List<Exercise> exercises = this.exerciseRepository.findByUserAndDate(user, DateParser.convertStringToLocalDate(date));
+        exercises.forEach(exercise -> {
+            ExerciseDTO exerciseDTO = new ExerciseDTO();
+            exerciseDTO.setLevel(exercise.getLevel());
+            exerciseDTO.setName(exercise.getName());
+            exerciseDTO.setSeries(exercise.getSeries());
+            exerciseDTO.setGroup(exercise.getGroup());
+            exerciseDTO.setWeight(exercise.getWeight());
+            exerciseDTO.setUrlImage(exercise.getUrlImage());
+            exercisesDTO.add(exerciseDTO);
+        });
+        return exercisesDTO;
     }
 
     public Exercise saveExercise(final Exercise exercise){

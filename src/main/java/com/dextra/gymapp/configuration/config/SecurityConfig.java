@@ -1,8 +1,8 @@
-package com.dextra.gymapp.configuration.polls.config;
+package com.dextra.gymapp.configuration.config;
 
-import com.dextra.gymapp.configuration.polls.security.CustomUserDetailsService;
-import com.dextra.gymapp.configuration.polls.security.JwtAuthenticationEntryPoint;
-import com.dextra.gymapp.configuration.polls.security.JwtAuthenticationFilter;
+import com.dextra.gymapp.configuration.security.CustomUserDetailsService;
+import com.dextra.gymapp.configuration.security.JwtAuthenticationEntryPoint;
+import com.dextra.gymapp.configuration.security.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -93,7 +93,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // default se
                         "/**/*.css",
                         "/**/*.js")
                 .permitAll()
-                .antMatchers("/api/auth/**")
+                .antMatchers("/auth/**")
                 .permitAll()
                 .antMatchers("/api/user/checkUsernameAvailability", "/api/user/checkEmailAvailability")
                 .permitAll()

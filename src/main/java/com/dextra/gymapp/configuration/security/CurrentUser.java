@@ -1,4 +1,4 @@
-package com.dextra.gymapp.configuration.polls.security;
+package com.dextra.gymapp.configuration.security;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import java.lang.annotation.*;

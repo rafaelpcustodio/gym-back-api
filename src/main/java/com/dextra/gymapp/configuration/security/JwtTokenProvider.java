@@ -1,4 +1,4 @@
-package com.dextra.gymapp.configuration.polls.security;
+package com.dextra.gymapp.configuration.security;
 
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;

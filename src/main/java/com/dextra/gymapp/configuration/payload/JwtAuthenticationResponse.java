@@ -1,4 +1,4 @@
-package com.dextra.gymapp.configuration.polls.payload;
+package com.dextra.gymapp.configuration.payload;
 
 public class JwtAuthenticationResponse {
     private String accessToken;

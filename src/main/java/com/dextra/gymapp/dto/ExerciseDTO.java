@@ -3,21 +3,21 @@ package com.dextra.gymapp.dto;
 import com.dextra.gymapp.enums.GroupPhysicalExerciseTypes;
 import com.dextra.gymapp.enums.PhysicalExerciseLevelTypes;
 
-public class PhysicalExerciseDTO {
+public class ExerciseDTO {
 
-    private String customerName;
     private String name;
     private Long weight;
     private String series;
-    private GroupPhysicalExerciseTypes groupPhysicalExerciseTypes;
+    private String urlImage;
+    private GroupPhysicalExerciseTypes group;
     private PhysicalExerciseLevelTypes level;
 
-    public String getCustomerName() {
-        return customerName;
+    public String getUrlImage() {
+        return urlImage;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setUrlImage(String urlImage) {
+        this.urlImage = urlImage;
     }
 
     public String getName() {
@@ -44,12 +44,12 @@ public class PhysicalExerciseDTO {
         this.series = series;
     }
 
-    public GroupPhysicalExerciseTypes getGroupPhysicalExerciseTypes() {
-        return groupPhysicalExerciseTypes;
+    public GroupPhysicalExerciseTypes getGroup() {
+        return group;
     }
 
-    public void setGroupPhysicalExerciseTypes(GroupPhysicalExerciseTypes groupPhysicalExerciseTypes) {
-        this.groupPhysicalExerciseTypes = groupPhysicalExerciseTypes;
+    public void setGroup(GroupPhysicalExerciseTypes group) {
+        this.group = group;
     }
 
     public PhysicalExerciseLevelTypes getLevel() {

@@ -1,4 +1,4 @@
-package com.dextra.gymapp.configuration.polls.config;
+package com.dextra.gymapp.configuration.config;
 
 
 import org.springframework.context.annotation.Configuration;

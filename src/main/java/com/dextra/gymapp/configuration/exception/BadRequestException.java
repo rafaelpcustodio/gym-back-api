@@ -1,4 +1,4 @@
-package com.dextra.gymapp.configuration.polls.exception;
+package com.dextra.gymapp.configuration.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

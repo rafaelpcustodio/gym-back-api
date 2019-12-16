@@ -1,4 +1,4 @@
-package com.dextra.gymapp.configuration.polls.security;
+package com.dextra.gymapp.configuration.security;
 
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;

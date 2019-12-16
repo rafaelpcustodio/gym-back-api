@@ -5,6 +5,7 @@ import com.dextra.gymapp.enums.PhysicalExerciseLevelTypes;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
@@ -18,7 +19,7 @@ public class Exercise {
     private Long exerciseId;
 
     @Column(name="DATE")
-    @NotBlank
+    @NotNull
     private LocalDate date;
 
     @Column(name="CUSTOMER_NAME")
@@ -30,8 +31,11 @@ public class Exercise {
     @Size(max = 40)
     private String name;
 
+    @Column(name="URL_IMAGE")
+    private String urlImage;
+
     @Column(name="WEIGHT")
-    @NotBlank
+    @NotNull
     private Long weight;
 
     @Column(name="SERIES")
@@ -39,16 +43,24 @@ public class Exercise {
     private String series;
 
     @Column(name="GROUP")
-    @NotBlank
+    @NotNull
     private GroupPhysicalExerciseTypes group;
 
     @Column(name="LEVEL")
-    @NotBlank
+    @NotNull
     private PhysicalExerciseLevelTypes level;
 
     @ManyToOne
     @JoinColumn(name="user_id", referencedColumnName = "userId", foreignKey = @ForeignKey(name="FK_EXERCISE_USER"))
     private User user;
+
+    public String getUrlImage() {
+        return urlImage;
+    }
+
+    public void setUrlImage(String urlImage) {
+        this.urlImage = urlImage;
+    }
 
     public User getUser() {
         return user;
