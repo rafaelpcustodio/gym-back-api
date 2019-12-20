@@ -5,12 +5,21 @@ import com.dextra.gymapp.enums.ExerciseLevelTypes;
 
 public class ExerciseDTO {
 
+    private Long id;
     private String name;
     private Long weight;
     private String series;
     private String urlImage;
     private GroupExerciseTypes group;
     private ExerciseLevelTypes level;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getUrlImage() {
         return urlImage;

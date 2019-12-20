@@ -41,11 +41,11 @@ public class ExerciseController {
     }
 
     @DeleteMapping("/users/{userId}/exercises/{exerciseId}")
-    public Exercise deleteExerciseByUserIdAndDate(
+    public void deleteExerciseByUserIdAndDate(
             @PathVariable(value = "userId") final Long userId,
             @PathVariable(value = "exerciseId") final Long exerciseId,
-            @RequestParam(value="date") @DateTimeFormat(pattern="yyyy-MM-dd") Date date) {
-        return this.exerciseService.deleteByUserIdAndExerciseIdAndDate(userId, exerciseId, date);
+            @RequestParam(value="date") @DateTimeFormat(pattern="yyyy-MM-dd") String date) {
+        this.exerciseService.deleteByUserIdAndExerciseIdAndDate(userId, exerciseId, date);
     }
 
     @PostMapping("/users/{userId}/exercises")

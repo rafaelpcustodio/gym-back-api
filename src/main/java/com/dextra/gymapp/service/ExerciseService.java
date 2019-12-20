@@ -30,6 +30,7 @@ public class ExerciseService {
         List<Exercise> exercises = this.exerciseRepository.findByUserAndDate(user, DateParser.convertStringToLocalDate(date));
         exercises.forEach(exercise -> {
             ExerciseDTO exerciseDTO = new ExerciseDTO();
+            exerciseDTO.setId(exercise.getExerciseId());
             exerciseDTO.setLevel(exercise.getLevel());
             exerciseDTO.setName(exercise.getName());
             exerciseDTO.setSeries(exercise.getSeries());
@@ -45,8 +46,7 @@ public class ExerciseService {
         return this.exerciseRepository.save(exercise);
     }
 
-    public Exercise deleteByUserIdAndExerciseIdAndDate(final Long userId, final Long exerciseId, final Date date){
-        return null;
-        // return this.exerciseRepository.deleteByUserIdAndExerciseIdAndDate(userId, exerciseId, DateParser.convertDateToLocalDate(date));
+    public void deleteByUserIdAndExerciseIdAndDate(final Long userId, final Long exerciseId, final String date){
+        this.exerciseRepository.deleteByUserUserIdAndExerciseIdAndDate(userId, exerciseId, DateParser.convertStringToLocalDate(date));
     }
 }

@@ -13,4 +13,6 @@ public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
 
     List<Exercise> findByUserAndDate(User user, LocalDate date);
 
+    void deleteByUserUserIdAndExerciseIdAndDate(Long userId, Long exerciseId, LocalDate date);
+
 }
