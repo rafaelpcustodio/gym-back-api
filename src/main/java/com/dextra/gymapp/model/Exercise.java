@@ -4,6 +4,7 @@ import com.dextra.gymapp.enums.GroupExerciseTypes;
 import com.dextra.gymapp.enums.ExerciseLevelTypes;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -51,8 +52,7 @@ public class Exercise {
     private ExerciseLevelTypes level;
 
     @ManyToOne
-    @JoinColumn(name="user_id", referencedColumnName = "userId", foreignKey = @ForeignKey(name="FK_EXERCISE_USER"))
-    private User user;
+    private Train train;
 
     public String getUrlImage() {
         return urlImage;
@@ -62,12 +62,12 @@ public class Exercise {
         this.urlImage = urlImage;
     }
 
-    public User getUser() {
-        return user;
+    public Train getTrain() {
+        return train;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setTrain(Train train) {
+        this.train = train;
     }
 
     public Exercise(Long exerciseId) {

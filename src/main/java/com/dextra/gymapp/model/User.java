@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Entity
+@javax.persistence.Entity
 @Table(name = "USERS", uniqueConstraints = {
         @UniqueConstraint(columnNames = {
                 "username"
@@ -57,6 +57,12 @@ public class User extends DateAudit {
             joinColumns = @JoinColumn(name = "userId", referencedColumnName = "userId"),
             inverseJoinColumns = @JoinColumn(name = "roleId", referencedColumnName = "roleId"))
     private Set<Role> roles = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_entities",
+            joinColumns = @JoinColumn(name = "userId", referencedColumnName = "userId"),
+            inverseJoinColumns = @JoinColumn(name = "entityId", referencedColumnName = "entityId"))
+    private Set<Entity> entities = new HashSet<>();
 
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "user")

@@ -4,6 +4,7 @@ package com.dextra.gymapp.model;
 import com.dextra.gymapp.enums.RoleName;
 import org.hibernate.annotations.NaturalId;
 import javax.persistence.*;
+import javax.persistence.Entity;
 
 @Entity
 @Table(name = "ROLES")
