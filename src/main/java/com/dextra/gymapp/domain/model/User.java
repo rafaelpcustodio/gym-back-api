@@ -1,5 +1,7 @@
 package com.dextra.gymapp.domain.model;
 
+import com.dextra.gymapp.domain.model.access.Permission;
+import com.dextra.gymapp.domain.model.access.Role;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -11,70 +13,89 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@javax.persistence.Entity
-@Table(name = "USERS", uniqueConstraints = {
+@Entity
+@Table(name = "USER", uniqueConstraints = {
         @UniqueConstraint(columnNames = {
-                "username"
+                "USERNAME"
         }),
         @UniqueConstraint(columnNames = {
-                "email"
+                "EMAIL"
         })
 })
 public class User extends DateAudit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="userId")
-    private Long userId;
+    @Column(name="USER_ID")
+    private Long id;
 
     @NotBlank
     @Size(max = 40)
+    @Column(name = "NAME")
     private String name;
 
     @NotBlank
     @Size(max = 15)
+    @Column(name = "USERNAME")
     private String username;
 
     @NaturalId
     @NotBlank
     @Size(max = 40)
     @Email
+    @Column(name = "EMAIL")
     private String email;
 
     @NotBlank
     @Size(max = 100)
+    @Column(name = "PASSWORD")
     private String password;
 
-    @Column(name = "weight")
+    @Column(name = "WEIGHT")
     private Long weight;
 
-    @Column(name = "height")
+    @Column(name = "HEIGHT")
     private String height;
 
-    @Column(name = "address")
+    @Column(name = "ADDRESS")
     private String address;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "userId", referencedColumnName = "userId"),
-            inverseJoinColumns = @JoinColumn(name = "roleId", referencedColumnName = "roleId"))
-    private Set<Role> roles = new HashSet<>();
+    @JoinTable(name = "USER_ENTITY",
+            joinColumns = @JoinColumn(name = "FK_USER", referencedColumnName = "USER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "FK_ENTITY", referencedColumnName = "ENTITY_ID"))
+    private Set<com.dextra.gymapp.domain.model.access.Entity> entities = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_entity",
-            joinColumns = @JoinColumn(name = "fk_user", referencedColumnName = "userId"),
-            inverseJoinColumns = @JoinColumn(name = "fk_entity", referencedColumnName = "entityId"))
-    private Set<Entity> entities = new HashSet<>();
+    @JoinTable(name = "USER_PERMISSION",
+            joinColumns = @JoinColumn(name = "FK_USER", referencedColumnName = "USER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "FK_PERMISSION", referencedColumnName = "PERMISSION_ID"))
+    private Set<Permission> permission = new HashSet<>();
 
+    @OneToMany(fetch=FetchType.LAZY, mappedBy = "USER")
+    private List<Train> trains = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "user")
-    private List<Exercise> exerciseList = new ArrayList<>();
-
-    public List<Exercise> getExerciseList() {
-        return exerciseList;
+    public Set<com.dextra.gymapp.domain.model.access.Entity> getEntities() {
+        return entities;
     }
 
-    public void setExerciseList(List<Exercise> exerciseList) {
-        this.exerciseList = exerciseList;
+    public void setEntities(Set<com.dextra.gymapp.domain.model.access.Entity> entities) {
+        this.entities = entities;
+    }
+
+    public Set<Permission> getPermission() {
+        return permission;
+    }
+
+    public void setPermission(Set<Permission> permission) {
+        this.permission = permission;
+    }
+
+    public List<Train> getTrains() {
+        return trains;
+    }
+
+    public void setTrains(List<Train> trains) {
+        this.trains = trains;
     }
 
     public User(String name, String username, String email, String password, String address) {
@@ -92,14 +113,24 @@ public class User extends DateAudit {
         this.password = password;
     }
 
-    public void addEntity(Entity e) {
+    public void addEntity(com.dextra.gymapp.domain.model.access.Entity e) {
         this.entities.add(e);
         e.getUsers().add(this);
     }
 
-    public void removeEntity(Entity e) {
+    public void removeEntity(com.dextra.gymapp.domain.model.access.Entity e) {
         this.entities.remove(e);
         e.getUsers().remove(this);
+    }
+
+    public void addPermission(Permission p) {
+        this.permission.add(p);
+        p.getUsers().add(this);
+    }
+
+    public void removePermission(Permission p) {
+        this.permission.remove(p);
+        p.getUsers().remove(this);
     }
 
     public Long getWeight() {
@@ -126,12 +157,12 @@ public class User extends DateAudit {
         this.address = address;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getId() {
+        return id;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -164,13 +195,5 @@ public class User extends DateAudit {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
     }
 }

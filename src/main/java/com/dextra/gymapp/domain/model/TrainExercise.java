@@ -1,5 +1,7 @@
 package com.dextra.gymapp.domain.model;
 
+import com.dextra.gymapp.domain.model.pk.TrainExerciseId;
+
 import javax.persistence.*;
 import javax.persistence.Entity;
 import java.time.DayOfWeek;
@@ -7,20 +9,17 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name="TRAIN_EXERCISES")
+@AssociationOverrides({
+        @AssociationOverride(name="PK_TRAIN",
+                joinColumns = @JoinColumn(name="TRAIN_ID")),
+        @AssociationOverride(name="PK_EXERCISE",
+        joinColumns = @JoinColumn(name="EXERCISE_ID")) })
 public class TrainExercise {
 
-    @Id
+    @EmbeddedId
     @GeneratedValue
     @Column(name="TRAIN_EXERCISES_ID")
-    private Long id;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @Column(name="TRAIN_ID")
-    private Train train;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @Column(name="EXERCISE_ID")
-    private Exercise exercise;
+    private TrainExerciseId id;
 
     @Column(name="DAY_OF_WEEK")
     private DayOfWeek dayOfWeek;
@@ -40,28 +39,12 @@ public class TrainExercise {
     @Column(name="FREQUENCY")
     private String frequency;
 
-    public Long getId() {
+    public TrainExerciseId getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(TrainExerciseId id) {
         this.id = id;
-    }
-
-    public Train getTrain() {
-        return train;
-    }
-
-    public void setTrain(Train train) {
-        this.train = train;
-    }
-
-    public Exercise getExercise() {
-        return exercise;
-    }
-
-    public void setExercise(Exercise exercise) {
-        this.exercise = exercise;
     }
 
     public DayOfWeek getDayOfWeek() {

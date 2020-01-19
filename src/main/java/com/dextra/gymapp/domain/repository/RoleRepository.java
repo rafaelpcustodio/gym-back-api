@@ -1,7 +1,7 @@
 package com.dextra.gymapp.domain.repository;
 
 import com.dextra.gymapp.domain.enums.RoleName;
-import com.dextra.gymapp.domain.model.Role;
+import com.dextra.gymapp.domain.model.access.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,6 @@
 package com.dextra.gymapp.domain.model;
 
 import com.dextra.gymapp.domain.enums.ExerciseLevelTypes;
-import com.dextra.gymapp.domain.enums.GroupExerciseTypes;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
@@ -9,15 +8,17 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name="EXERCISES")
+@Table(name="EXERCISE")
 public class Exercise {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="exerciseId")
-    private Long exerciseId;
+    @Column(name="EXERCISE_ID")
+    private Long id;
 
     @Column(name="DATE")
     @NotNull
@@ -32,8 +33,9 @@ public class Exercise {
     @Size(max = 40)
     private String name;
 
-    @Column(name="URL_IMAGE")
-    private String urlImage;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="IMAGE_ID")
+    private ExerciseImage image;
 
     @Column(name="WEIGHT")
     @NotNull
@@ -43,35 +45,42 @@ public class Exercise {
     @NotBlank
     private String series;
 
-    @Column(name="GROUP")
-    @NotNull
-    private GroupExerciseTypes group;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="GROUP_ID")
+    private Group group;
 
     @Column(name="LEVEL")
     @NotNull
     private ExerciseLevelTypes level;
 
-    @ManyToOne
-    private Train train;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "PK_EXERCISE")
+    private Set<TrainExercise> trainExercises = new HashSet<>();
 
-    public String getUrlImage() {
-        return urlImage;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "PK_EXERCISE")
+    private Set<PresetExercise> presetExercises = new HashSet<>();
+
+    public Set<TrainExercise> getTrainExercises() {
+        return trainExercises;
     }
 
-    public void setUrlImage(String urlImage) {
-        this.urlImage = urlImage;
+    public void setTrainExercises(Set<TrainExercise> trainExercises) {
+        this.trainExercises = trainExercises;
     }
 
-    public Train getTrain() {
-        return train;
+    public ExerciseImage getImage() {
+        return image;
     }
 
-    public void setTrain(Train train) {
-        this.train = train;
+    public void setImage(ExerciseImage image) {
+        this.image = image;
     }
 
-    public Exercise(Long exerciseId) {
-        this.exerciseId = exerciseId;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Exercise() {
@@ -83,14 +92,6 @@ public class Exercise {
 
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
-    }
-
-    public Long getExerciseId() {
-        return exerciseId;
-    }
-
-    public void setExerciseId(Long exerciseId) {
-        this.exerciseId = exerciseId;
     }
 
     public LocalDate getDate() {
@@ -125,11 +126,11 @@ public class Exercise {
         this.series = series;
     }
 
-    public GroupExerciseTypes getGroup() {
+    public Group getGroup() {
         return group;
     }
 
-    public void setGroup(GroupExerciseTypes group) {
+    public void setGroup(Group group) {
         this.group = group;
     }
 

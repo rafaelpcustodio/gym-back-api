@@ -1,7 +1,7 @@
 package com.dextra.gymapp.application.controller;
 
 import com.dextra.gymapp.domain.enums.RoleName;
-import com.dextra.gymapp.domain.model.Role;
+import com.dextra.gymapp.domain.model.access.Role;
 import com.dextra.gymapp.domain.model.User;
 import com.dextra.gymapp.domain.repository.RoleRepository;
 import com.dextra.gymapp.domain.repository.UserRepository;

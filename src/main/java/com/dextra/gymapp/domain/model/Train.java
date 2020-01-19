@@ -4,16 +4,16 @@ package com.dextra.gymapp.domain.model;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "TRAINS")
+@Table(name = "TRAIN")
 public class Train {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="trainId")
+    @Column(name="TRAIN_ID")
     private Long id;
 
     @Column(name="DESCRIPTION")
@@ -25,15 +25,27 @@ public class Train {
     @Column(name="END_DATE")
     private LocalDate endDate;
 
-    @OneToMany(mappedBy = "trainId")
-    private List<Exercise> exercises = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "USER_ID", nullable = false)
+    private User user;
 
-    public List<Exercise> getExercises() {
-        return exercises;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "PK_TRAIN", cascade = CascadeType.ALL)
+    private Set<TrainExercise> trainExercises = new HashSet<>();
+
+    public User getUser() {
+        return user;
     }
 
-    public void setExercises(List<Exercise> exercises) {
-        this.exercises = exercises;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Set<TrainExercise> getTrainExercises() {
+        return trainExercises;
+    }
+
+    public void setTrainExercises(Set<TrainExercise> trainExercises) {
+        this.trainExercises = trainExercises;
     }
 
     public Long getId() {
