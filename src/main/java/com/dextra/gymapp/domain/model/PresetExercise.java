@@ -1,9 +1,9 @@
 package com.dextra.gymapp.domain.model;
 
 import com.dextra.gymapp.domain.model.pk.PresetExerciseId;
-import com.dextra.gymapp.domain.model.pk.TrainExerciseId;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="PRESET_EXERCISE")
@@ -12,12 +12,12 @@ import javax.persistence.*;
                 joinColumns = @JoinColumn(name="PRESET_ID")),
         @AssociationOverride(name="PK_EXERCISE",
                 joinColumns = @JoinColumn(name="EXERCISE_ID")) })
-public class PresetExercise {
+public class PresetExercise  implements Serializable {
 
     @EmbeddedId
     @GeneratedValue
     @Column(name="PRESET_EXERCISE_ID")
-    private PresetExerciseId id;
+    private PresetExerciseId pk;
 
     @Column(name="REPETITIONS")
     private Integer repetitions;
@@ -28,12 +28,12 @@ public class PresetExercise {
     @Column(name="DAY_OF_WEEK")
     private String dayOfWeek;
 
-    public PresetExerciseId getId() {
-        return id;
+    public PresetExerciseId getPk() {
+        return pk;
     }
 
-    public void setId(PresetExerciseId id) {
-        this.id = id;
+    public void setPk(PresetExerciseId pk) {
+        this.pk = pk;
     }
 
     public Integer getRepetitions() {

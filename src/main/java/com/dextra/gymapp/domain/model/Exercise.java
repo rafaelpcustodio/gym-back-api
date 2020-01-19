@@ -7,17 +7,17 @@ import javax.persistence.Entity;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name="EXERCISE")
-public class Exercise {
+public class Exercise implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="EXERCISE_ID")
     private Long id;
 
     @Column(name="DATE")
@@ -53,11 +53,19 @@ public class Exercise {
     @NotNull
     private ExerciseLevelTypes level;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "PK_EXERCISE")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.exercise")
     private Set<TrainExercise> trainExercises = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "PK_EXERCISE")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.exercise")
     private Set<PresetExercise> presetExercises = new HashSet<>();
+
+    public Set<PresetExercise> getPresetExercises() {
+        return presetExercises;
+    }
+
+    public void setPresetExercises(Set<PresetExercise> presetExercises) {
+        this.presetExercises = presetExercises;
+    }
 
     public Set<TrainExercise> getTrainExercises() {
         return trainExercises;

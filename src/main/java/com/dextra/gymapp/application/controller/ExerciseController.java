@@ -32,7 +32,7 @@ public class ExerciseController {
             @RequestParam(value = "date") @DateTimeFormat(pattern="yyyy-MM-dd") String date) {
         Optional<User> user = this.userRepository.findById(userId);
         if(user.isPresent()) {
-            List<ExerciseDTO> exercises = this.exerciseService.findByUserAndExerciseIdAndDate(user.get(), date);
+            List<ExerciseDTO> exercises = this.exerciseService.findByUserAndIdAndDate(user.get(), date);
             return exercises;
         }
         return Collections.emptyList();
@@ -43,7 +43,7 @@ public class ExerciseController {
             @PathVariable(value = "userId") final Long userId,
             @PathVariable(value = "exerciseId") final Long exerciseId,
             @RequestParam(value="date") @DateTimeFormat(pattern="yyyy-MM-dd") String date) {
-        this.exerciseService.deleteByUserIdAndExerciseIdAndDate(userId, exerciseId, date);
+        // this.exerciseService.deleteByIdAndExerciseIdAndDate(userId, exerciseId, date);
     }
 
     @PostMapping("/users/{userId}/exercises")

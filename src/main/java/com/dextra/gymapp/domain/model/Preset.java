@@ -3,12 +3,13 @@ package com.dextra.gymapp.domain.model;
 import com.dextra.gymapp.domain.enums.ExerciseLevelTypes;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "PRESET")
-public class Preset {
+public class Preset implements Serializable {
 
     @Id
     @GeneratedValue
@@ -23,7 +24,7 @@ public class Preset {
     @Column(name="LEVEL")
     private ExerciseLevelTypes level;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "PK_PRESET", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.preset", cascade = CascadeType.ALL)
     private Set<PresetExercise> presetExercises = new HashSet<>();
 
     public Long getId() {

@@ -24,20 +24,20 @@ public class ExerciseService {
     }
 
     @Transactional(readOnly = true)
-    public List<ExerciseDTO> findByUserAndExerciseIdAndDate(final User user, final String date){
+    public List<ExerciseDTO> findByUserAndIdAndDate(final User user, final String date){
         List<ExerciseDTO> exercisesDTO = new ArrayList<>();
-        List<Exercise> exercises = this.exerciseRepository.findByUserAndDate(user, DateParser.convertStringToLocalDate(date));
-        exercises.forEach(exercise -> {
-            ExerciseDTO exerciseDTO = new ExerciseDTO();
-            exerciseDTO.setId(exercise.getExerciseId());
-            exerciseDTO.setLevel(exercise.getLevel());
-            exerciseDTO.setName(exercise.getName());
-            exerciseDTO.setSeries(exercise.getSeries());
-            exerciseDTO.setGroup(exercise.getGroup());
-            exerciseDTO.setWeight(exercise.getWeight());
-            exerciseDTO.setUrlImage(exercise.getUrlImage());
-            exercisesDTO.add(exerciseDTO);
-        });
+//        List<Exercise> exercises = this.exerciseRepository.findByUserAndDate(user, DateParser.convertStringToLocalDate(date));
+//        exercises.forEach(exercise -> {
+//            ExerciseDTO exerciseDTO = new ExerciseDTO();
+//            exerciseDTO.setId(exercise.getId());
+//            exerciseDTO.setLevel(exercise.getLevel());
+//            exerciseDTO.setName(exercise.getName());
+//            exerciseDTO.setSeries(exercise.getSeries());
+//            exerciseDTO.setGroup(exercise.getGroup().getName());
+//            exerciseDTO.setWeight(exercise.getWeight());
+//            exerciseDTO.setUrlImage(exercise.getImage().getUrl());
+//            exercisesDTO.add(exerciseDTO);
+//        });
         return exercisesDTO;
     }
 
@@ -45,7 +45,7 @@ public class ExerciseService {
         return this.exerciseRepository.save(exercise);
     }
 
-    public void deleteByUserIdAndExerciseIdAndDate(final Long userId, final Long exerciseId, final String date){
-        this.exerciseRepository.deleteByUserUserIdAndExerciseIdAndDate(userId, exerciseId, DateParser.convertStringToLocalDate(date));
+    public void deleteByUserIdAndIdAndDate(final Long userId, final Long exerciseId, final String date){
+        // this.exerciseRepository.deleteByUserUserIdAndExerciseIdAndDate(userId, exerciseId, DateParser.convertStringToLocalDate(date));
     }
 }

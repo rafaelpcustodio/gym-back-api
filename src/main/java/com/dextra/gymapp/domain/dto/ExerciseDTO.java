@@ -10,7 +10,7 @@ public class ExerciseDTO {
     private Long weight;
     private String series;
     private String urlImage;
-    private GroupExerciseTypes group;
+    private String group;
     private ExerciseLevelTypes level;
 
     public Long getId() {
@@ -53,11 +53,11 @@ public class ExerciseDTO {
         this.series = series;
     }
 
-    public GroupExerciseTypes getGroup() {
+    public String getGroup() {
         return group;
     }
 
-    public void setGroup(GroupExerciseTypes group) {
+    public void setGroup(String group) {
         this.group = group;
     }
 

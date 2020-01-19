@@ -3,17 +3,17 @@ package com.dextra.gymapp.domain.model;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "TRAIN")
-public class Train {
+public class Train implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="TRAIN_ID")
     private Long id;
 
     @Column(name="DESCRIPTION")
@@ -26,10 +26,10 @@ public class Train {
     private LocalDate endDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID", nullable = false)
+    @JoinColumn(name = "user", nullable = false)
     private User user;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "PK_TRAIN", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.train", cascade = CascadeType.ALL)
     private Set<TrainExercise> trainExercises = new HashSet<>();
 
     public User getUser() {

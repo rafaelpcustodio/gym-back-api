@@ -4,12 +4,13 @@ import com.dextra.gymapp.domain.model.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @javax.persistence.Entity
 @Table(name="ENTITY")
-public class Entity {
+public class Entity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +21,7 @@ public class Entity {
     @Column(name = "NAME")
     private String name;
 
-    @ManyToMany(mappedBy = "USERS")
+    @ManyToMany(mappedBy = "entities")
     private Set<User> users = new HashSet<>();
 
     public Set<User> getUsers() {

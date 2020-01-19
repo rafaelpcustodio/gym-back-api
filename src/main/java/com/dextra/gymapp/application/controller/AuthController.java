@@ -1,6 +1,7 @@
 package com.dextra.gymapp.application.controller;
 
 import com.dextra.gymapp.domain.enums.RoleName;
+import com.dextra.gymapp.domain.model.access.Permission;
 import com.dextra.gymapp.domain.model.access.Role;
 import com.dextra.gymapp.domain.model.User;
 import com.dextra.gymapp.domain.repository.RoleRepository;
@@ -28,6 +29,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/auth")
@@ -85,7 +88,12 @@ public class AuthController {
         Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
                 .orElseThrow(() -> new AppException("User Role not set."));
 
-        user.setRoles(Collections.singleton(userRole));
+        Permission permission = new Permission();
+        permission.addRole(userRole);
+        Set<Permission> permissions = new HashSet<>();
+        permissions.add(permission);
+
+        user.setPermissions(permissions);
 
         User result = userRepository.save(user);
 

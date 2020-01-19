@@ -7,12 +7,13 @@ import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "ROLES")
-public class Role {
+public class Role implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ROLE_ID")
@@ -23,7 +24,7 @@ public class Role {
     @Column(name="NAME", length = 60)
     private RoleName name;
 
-    @ManyToMany(mappedBy = "PERMISSION")
+    @ManyToMany(mappedBy = "roles")
     private Set<Permission> permission = new HashSet<>();
 
     public Set<Permission> getPermission() {

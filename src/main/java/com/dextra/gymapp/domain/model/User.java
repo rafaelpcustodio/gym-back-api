@@ -69,9 +69,9 @@ public class User extends DateAudit {
     @JoinTable(name = "USER_PERMISSION",
             joinColumns = @JoinColumn(name = "FK_USER", referencedColumnName = "USER_ID"),
             inverseJoinColumns = @JoinColumn(name = "FK_PERMISSION", referencedColumnName = "PERMISSION_ID"))
-    private Set<Permission> permission = new HashSet<>();
+    private Set<Permission> permissions = new HashSet<>();
 
-    @OneToMany(fetch=FetchType.LAZY, mappedBy = "USER")
+    @OneToMany(fetch=FetchType.LAZY, mappedBy = "user")
     private List<Train> trains = new ArrayList<>();
 
     public Set<com.dextra.gymapp.domain.model.access.Entity> getEntities() {
@@ -82,12 +82,13 @@ public class User extends DateAudit {
         this.entities = entities;
     }
 
-    public Set<Permission> getPermission() {
-        return permission;
+
+    public Set<Permission> getPermissions() {
+        return permissions;
     }
 
-    public void setPermission(Set<Permission> permission) {
-        this.permission = permission;
+    public void setPermissions(Set<Permission> permissions) {
+        this.permissions = permissions;
     }
 
     public List<Train> getTrains() {
@@ -124,12 +125,12 @@ public class User extends DateAudit {
     }
 
     public void addPermission(Permission p) {
-        this.permission.add(p);
+        this.permissions.add(p);
         p.getUsers().add(this);
     }
 
     public void removePermission(Permission p) {
-        this.permission.remove(p);
+        this.permissions.remove(p);
         p.getUsers().remove(this);
     }
 

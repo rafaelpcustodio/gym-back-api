@@ -1,11 +1,13 @@
 package com.dextra.gymapp.infrastructure.configuration.security;
 
 import com.dextra.gymapp.domain.model.User;
+import com.dextra.gymapp.domain.model.access.Permission;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -36,12 +38,16 @@ public class UserPrincipal implements UserDetails {
     }
 
     public static UserPrincipal create(User user) {
-        List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
-                new SimpleGrantedAuthority(role.getName().name())
-        ).collect(Collectors.toList());
+        List<GrantedAuthority> authorities =  new ArrayList<>();
+
+        for(Permission permission : user.getPermissions()) {
+            authorities = permission.getRoles().stream()
+                    .map(role -> new SimpleGrantedAuthority(role.getName().name()))
+                    .collect(Collectors.toList());
+        }
 
         return new UserPrincipal(
-                user.getUserId(),
+                user.getId(),
                 user.getName(),
                 user.getUsername(),
                 user.getEmail(),

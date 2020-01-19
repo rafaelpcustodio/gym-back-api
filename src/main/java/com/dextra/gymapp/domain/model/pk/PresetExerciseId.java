@@ -5,9 +5,10 @@ import com.dextra.gymapp.domain.model.Preset;
 
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
+import java.io.Serializable;
 
 @Embeddable
-public class PresetExerciseId {
+public class PresetExerciseId implements Serializable {
 
     @ManyToOne
     private Preset preset;

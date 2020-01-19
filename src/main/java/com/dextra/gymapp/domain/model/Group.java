@@ -1,17 +1,18 @@
 package com.dextra.gymapp.domain.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="GROUP")
-public class Group {
+public class Group implements Serializable {
 
     @Id
     @GeneratedValue
     @JoinColumn(name="GROUP_ID")
     private Long id;
 
-    @OneToOne(mappedBy = "EXERCISE", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     @MapsId
     private Exercise exercise;
 

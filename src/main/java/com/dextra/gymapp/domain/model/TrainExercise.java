@@ -4,6 +4,7 @@ import com.dextra.gymapp.domain.model.pk.TrainExerciseId;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
+import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 
@@ -14,12 +15,12 @@ import java.time.LocalDate;
                 joinColumns = @JoinColumn(name="TRAIN_ID")),
         @AssociationOverride(name="PK_EXERCISE",
         joinColumns = @JoinColumn(name="EXERCISE_ID")) })
-public class TrainExercise {
+public class TrainExercise  implements Serializable {
 
     @EmbeddedId
     @GeneratedValue
     @Column(name="TRAIN_EXERCISES_ID")
-    private TrainExerciseId id;
+    private TrainExerciseId pk;
 
     @Column(name="DAY_OF_WEEK")
     private DayOfWeek dayOfWeek;
@@ -39,12 +40,12 @@ public class TrainExercise {
     @Column(name="FREQUENCY")
     private String frequency;
 
-    public TrainExerciseId getId() {
-        return id;
+    public TrainExerciseId getPk() {
+        return pk;
     }
 
-    public void setId(TrainExerciseId id) {
-        this.id = id;
+    public void setPk(TrainExerciseId pk) {
+        this.pk = pk;
     }
 
     public DayOfWeek getDayOfWeek() {
