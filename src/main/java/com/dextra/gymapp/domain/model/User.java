@@ -1,6 +1,5 @@
 package com.dextra.gymapp.domain.model;
 
-import com.dextra.gymapp.domain.model.access.Permission;
 import com.dextra.gymapp.domain.model.access.Role;
 import org.hibernate.annotations.NaturalId;
 
@@ -65,12 +64,11 @@ public class User extends DateAudit {
             inverseJoinColumns = @JoinColumn(name = "FK_ENTITY", referencedColumnName = "ENTITY_ID"))
     private Set<com.dextra.gymapp.domain.model.access.Entity> entities = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "USER_PERMISSION",
-            joinColumns = @JoinColumn(name = "FK_USER", referencedColumnName = "USER_ID"),
-            inverseJoinColumns = @JoinColumn(name = "FK_PERMISSION", referencedColumnName = "PERMISSION_ID"))
-    private Set<Permission> permissions = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name="FK_ROLE")
+    private Role role = new Role();
 
+    @Transient
     @OneToMany(fetch=FetchType.LAZY, mappedBy = "user")
     private List<Train> trains = new ArrayList<>();
 
@@ -83,12 +81,12 @@ public class User extends DateAudit {
     }
 
 
-    public Set<Permission> getPermissions() {
-        return permissions;
+    public Role getRole() {
+        return role;
     }
 
-    public void setPermissions(Set<Permission> permissions) {
-        this.permissions = permissions;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public List<Train> getTrains() {
@@ -122,16 +120,6 @@ public class User extends DateAudit {
     public void removeEntity(com.dextra.gymapp.domain.model.access.Entity e) {
         this.entities.remove(e);
         e.getUsers().remove(this);
-    }
-
-    public void addPermission(Permission p) {
-        this.permissions.add(p);
-        p.getUsers().add(this);
-    }
-
-    public void removePermission(Permission p) {
-        this.permissions.remove(p);
-        p.getUsers().remove(this);
     }
 
     public Long getWeight() {

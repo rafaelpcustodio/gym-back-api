@@ -1,5 +1,6 @@
 package com.dextra.gymapp.domain.model.access;
 
+import com.dextra.gymapp.domain.enums.EntityName;
 import com.dextra.gymapp.domain.model.User;
 
 import javax.persistence.*;
@@ -17,12 +18,21 @@ public class Entity implements Serializable {
     @Column(name="ENTITY_ID")
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     @NotBlank
     @Column(name = "NAME")
-    private String name;
+    private EntityName name;
 
     @ManyToMany(mappedBy = "entities")
     private Set<User> users = new HashSet<>();
+
+    public EntityName getName() {
+        return name;
+    }
+
+    public void setName(EntityName name) {
+        this.name = name;
+    }
 
     public Set<User> getUsers() {
         return users;

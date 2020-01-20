@@ -12,11 +12,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "ROLES")
+@Table(name = "ROLE")
 public class Role implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="ROLE_ID")
     private Long id;
 
     @Enumerated(EnumType.STRING)
@@ -24,15 +24,15 @@ public class Role implements Serializable {
     @Column(name="NAME", length = 60)
     private RoleName name;
 
-    @ManyToMany(mappedBy = "roles")
-    private Set<Permission> permission = new HashSet<>();
+    @OneToMany(fetch=FetchType.LAZY, mappedBy = "role")
+    private Set<User> users = new HashSet<>();
 
-    public Set<Permission> getPermission() {
-        return permission;
+    public Set<User> getUsers() {
+        return users;
     }
 
-    public void setPermission(Set<Permission> permission) {
-        this.permission = permission;
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
     public Role() {

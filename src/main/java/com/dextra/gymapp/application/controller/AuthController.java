@@ -1,9 +1,12 @@
 package com.dextra.gymapp.application.controller;
 
+import com.dextra.gymapp.domain.enums.EntityName;
+import com.dextra.gymapp.domain.enums.PermissionName;
 import com.dextra.gymapp.domain.enums.RoleName;
-import com.dextra.gymapp.domain.model.access.Permission;
+import com.dextra.gymapp.domain.model.access.Entity;
 import com.dextra.gymapp.domain.model.access.Role;
 import com.dextra.gymapp.domain.model.User;
+import com.dextra.gymapp.domain.repository.EntityRepository;
 import com.dextra.gymapp.domain.repository.RoleRepository;
 import com.dextra.gymapp.domain.repository.UserRepository;
 import com.dextra.gymapp.infrastructure.configuration.exception.AppException;
@@ -28,7 +31,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -44,6 +46,9 @@ public class AuthController {
 
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    EntityRepository entityRepository;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -88,12 +93,14 @@ public class AuthController {
         Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
                 .orElseThrow(() -> new AppException("User Role not set."));
 
-        Permission permission = new Permission();
-        permission.addRole(userRole);
-        Set<Permission> permissions = new HashSet<>();
-        permissions.add(permission);
+        Entity userEntity = entityRepository.findByName(EntityName.GYM)
+                .orElseThrow(() -> new AppException("User Entity not set."));
 
-        user.setPermissions(permissions);
+        Set<Entity> entities = new HashSet<>();
+        entities.add(userEntity);
+
+        user.setEntities(entities);
+        user.setRole(userRole);
 
         User result = userRepository.save(user);
 
