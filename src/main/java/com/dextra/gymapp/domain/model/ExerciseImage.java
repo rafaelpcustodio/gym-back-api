@@ -16,6 +16,9 @@ public class ExerciseImage implements Serializable {
     @MapsId
     private Exercise exercise;
 
+    public ExerciseImage() {
+    }
+
     private String url;
 
     public Long getId() {

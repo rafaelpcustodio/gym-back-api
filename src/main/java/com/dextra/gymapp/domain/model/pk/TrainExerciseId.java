@@ -20,6 +20,9 @@ public class TrainExerciseId implements Serializable {
         return exercise;
     }
 
+    public TrainExerciseId() {
+    }
+
     public void setExercise(Exercise exercise) {
         this.exercise = exercise;
     }

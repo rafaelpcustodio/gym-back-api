@@ -48,6 +48,12 @@ public class TrainExercise  implements Serializable {
         this.pk = pk;
     }
 
+    public TrainExercise(){}
+
+    public TrainExercise(TrainExerciseId pk) {
+        this.pk = pk;
+    }
+
     public DayOfWeek getDayOfWeek() {
         return dayOfWeek;
     }

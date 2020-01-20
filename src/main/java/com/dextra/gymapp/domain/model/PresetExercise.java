@@ -28,6 +28,8 @@ public class PresetExercise  implements Serializable {
     @Column(name="DAY_OF_WEEK")
     private String dayOfWeek;
 
+    public PresetExercise(){}
+
     public PresetExerciseId getPk() {
         return pk;
     }

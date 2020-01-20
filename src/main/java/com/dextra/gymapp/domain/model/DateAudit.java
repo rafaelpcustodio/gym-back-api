@@ -27,6 +27,9 @@ public abstract class DateAudit implements Serializable {
     @Column(nullable = false)
     private Instant updatedAt;
 
+    public DateAudit() {
+    }
+
     public Instant getCreatedAt() {
         return createdAt;
     }

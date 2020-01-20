@@ -59,6 +59,8 @@ public class Exercise implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.exercise")
     private Set<PresetExercise> presetExercises = new HashSet<>();
 
+
+
     public Set<PresetExercise> getPresetExercises() {
         return presetExercises;
     }

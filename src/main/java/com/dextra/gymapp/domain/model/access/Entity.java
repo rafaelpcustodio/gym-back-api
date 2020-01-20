@@ -26,6 +26,14 @@ public class Entity implements Serializable {
     @ManyToMany(mappedBy = "entities")
     private Set<User> users = new HashSet<>();
 
+    public Entity(){}
+
+    public Entity(Long id, @NotBlank EntityName name, Set<User> users) {
+        this.id = id;
+        this.name = name;
+        this.users = users;
+    }
+
     public EntityName getName() {
         return name;
     }

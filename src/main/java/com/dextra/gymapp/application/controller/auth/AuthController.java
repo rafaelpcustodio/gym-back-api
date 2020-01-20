@@ -1,7 +1,6 @@
-package com.dextra.gymapp.application.controller;
+package com.dextra.gymapp.application.controller.auth;
 
 import com.dextra.gymapp.domain.enums.EntityName;
-import com.dextra.gymapp.domain.enums.PermissionName;
 import com.dextra.gymapp.domain.enums.RoleName;
 import com.dextra.gymapp.domain.model.access.Entity;
 import com.dextra.gymapp.domain.model.access.Role;
@@ -32,6 +31,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.HashSet;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 @RestController
@@ -56,6 +57,8 @@ public class AuthController {
     @Autowired
     JwtTokenProvider tokenProvider;
 
+    private static final String SUCCESSFUL_REGISTERED = "User registered successfully";
+
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -74,23 +77,27 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
-        if(userRepository.existsByUsername(signUpRequest.getUsername())) {
-            return new ResponseEntity(new ApiResponse(false, "Username is already taken!"),
-                    HttpStatus.BAD_REQUEST);
+        SignUpRequestValidator signUpRequestValidator = new SignUpRequestValidator(signUpRequest, userRepository);
+        if(signUpRequestValidator.isValid()) {
+            User result = this.createUser(signUpRequest);
+
+            URI location = ServletUriComponentsBuilder
+                    .fromCurrentContextPath().path("/api/users/{username}")
+                    .buildAndExpand(result.getUsername()).toUri();
+
+            return ResponseEntity.created(location).body(new ApiResponse(true, SUCCESSFUL_REGISTERED));
         }
 
-        if(userRepository.existsByEmail(signUpRequest.getEmail())) {
-            return new ResponseEntity(new ApiResponse(false, "Email Address already in use!"),
-                    HttpStatus.BAD_REQUEST);
-        }
+        return signUpRequestValidator.getResponseError();
+    }
 
-        // Creating user's account
+    private User createUser(final SignUpRequest signUpRequest) {
         User user = new User(signUpRequest.getName(), signUpRequest.getUsername(),
                 signUpRequest.getEmail(), signUpRequest.getPassword(), signUpRequest.getAddress());
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+        Role userRole = roleRepository.findByName(RoleName.ROLE_CUSTOMER)
                 .orElseThrow(() -> new AppException("User Role not set."));
 
         Entity userEntity = entityRepository.findByName(EntityName.GYM)
@@ -102,12 +109,6 @@ public class AuthController {
         user.setEntities(entities);
         user.setRole(userRole);
 
-        User result = userRepository.save(user);
-
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentContextPath().path("/api/users/{username}")
-                .buildAndExpand(result.getUsername()).toUri();
-
-        return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
+        return userRepository.save(user);
     }
 }

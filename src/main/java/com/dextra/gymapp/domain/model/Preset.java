@@ -27,6 +27,8 @@ public class Preset implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.preset", cascade = CascadeType.ALL)
     private Set<PresetExercise> presetExercises = new HashSet<>();
 
+    public Preset(){}
+
     public Long getId() {
         return id;
     }

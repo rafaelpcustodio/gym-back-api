@@ -16,6 +16,9 @@ public class PresetExerciseId implements Serializable {
     @ManyToOne
     private Exercise exercise;
 
+    public PresetExerciseId() {
+    }
+
     public Exercise getExercise() {
         return exercise;
     }

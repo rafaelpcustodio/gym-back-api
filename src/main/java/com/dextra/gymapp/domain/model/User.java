@@ -72,6 +72,12 @@ public class User extends DateAudit {
     @OneToMany(fetch=FetchType.LAZY, mappedBy = "user")
     private List<Train> trains = new ArrayList<>();
 
+    public User(){}
+
+    public User(Long id) {
+        this.id = id;
+    }
+
     public Set<com.dextra.gymapp.domain.model.access.Entity> getEntities() {
         return entities;
     }

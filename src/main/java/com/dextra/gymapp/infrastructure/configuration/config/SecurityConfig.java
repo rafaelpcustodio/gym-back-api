@@ -91,14 +91,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // default se
                         "/**/*.jpg",
                         "/**/*.html",
                         "/**/*.css",
-                        "/**/*.js")
-                .permitAll()
-                .antMatchers("/auth/**")
-                .permitAll()
-                .antMatchers("/api/user/checkUsernameAvailability", "/api/user/checkEmailAvailability")
-                .permitAll()
-                .antMatchers(HttpMethod.GET, "/api/polls/**", "/api/users/**")
-                .permitAll()
+                        "/**/*.js").permitAll()
+                .antMatchers("/auth/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/polls/**", "/api/users/**").permitAll()
+                .antMatchers("/customer/*").hasRole("ROLE_CUSTOMER")
+                .antMatchers("/admin/*").hasRole("ROLE_ADMIN")
+                .antMatchers("/professor/*").hasRole("ROLE_PROFESSOR")
                 .anyRequest()
                 .authenticated();
 

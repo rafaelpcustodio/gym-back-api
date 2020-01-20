@@ -1,6 +1,7 @@
 package com.dextra.gymapp.infrastructure.configuration.security;
 
 import com.dextra.gymapp.domain.model.User;
+import com.dextra.gymapp.domain.model.access.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +18,8 @@ public class UserPrincipal implements UserDetails {
 
     private String username;
 
+    private Role role;
+
     @JsonIgnore
     private String email;
 
@@ -25,12 +28,13 @@ public class UserPrincipal implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserPrincipal(Long id, String name, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserPrincipal(Long id, String name, String username, String email, String password,  Role role, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.name = name;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.role = role;
         this.authorities = authorities;
     }
 
@@ -43,8 +47,17 @@ public class UserPrincipal implements UserDetails {
                 user.getUsername(),
                 user.getEmail(),
                 user.getPassword(),
+                user.getRole(),
                 authorities
         );
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public Long getId() {

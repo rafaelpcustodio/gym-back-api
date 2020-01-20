@@ -32,6 +32,8 @@ public class Train implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.train", cascade = CascadeType.ALL)
     private Set<TrainExercise> trainExercises = new HashSet<>();
 
+    public Train(){}
+
     public User getUser() {
         return user;
     }

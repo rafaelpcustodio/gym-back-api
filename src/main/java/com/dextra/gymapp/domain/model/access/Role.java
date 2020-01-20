@@ -35,9 +35,7 @@ public class Role implements Serializable {
         this.users = users;
     }
 
-    public Role() {
-
-    }
+    public Role() {}
 
     public Role(RoleName name) {
         this.name = name;

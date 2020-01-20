@@ -22,6 +22,8 @@ public class Group implements Serializable {
     @Column(name="DESCRIPTION")
     private String description;
 
+    public Group(){}
+
     public Exercise getExercise() {
         return exercise;
     }
